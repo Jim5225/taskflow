@@ -9,6 +9,7 @@ import {
   Menu,
   X,
   ChevronLeft,
+  Grid2x2,
 } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { useAuthStore } from '../../stores/authStore';
@@ -29,6 +30,7 @@ export default function Sidebar({ userXP = 0 }: SidebarProps) {
 
   const navItems = [
     { id: 'tasks' as const, label: 'My Tasks', icon: ListTodo },
+    { id: 'eisenhower' as const, label: 'Eisenhower', icon: Grid2x2 },
     { id: 'pomodoro' as const, label: 'Pomodoro', icon: Timer },
     { id: 'statistics' as const, label: 'Statistics', icon: BarChart3 },
   ];

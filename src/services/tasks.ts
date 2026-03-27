@@ -19,6 +19,7 @@ export async function createTask(userId: string, task: TaskFormData): Promise<Ta
       title: task.title.trim(),
       description: task.description.trim(),
       priority: task.priority,
+      quadrant: task.quadrant,
       due_date: task.due_date || null,
     })
     .select()

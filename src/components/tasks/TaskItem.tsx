@@ -3,6 +3,7 @@ import { Check, Pencil, Trash2, Calendar, Clock } from 'lucide-react';
 import type { Task } from '../../types';
 import { cn } from '../../utils/cn';
 import { PRIORITY_CONFIG } from '../../utils/constants';
+import { QUADRANT_CONFIG } from '../../utils/eisenhower';
 import { format, isPast, isToday, isTomorrow } from 'date-fns';
 
 interface TaskItemProps {
@@ -10,10 +11,12 @@ interface TaskItemProps {
   onToggle: (taskId: string, completed: boolean) => void;
   onEdit: (task: Task) => void;
   onDelete: (taskId: string) => void;
+  compact?: boolean;
 }
 
-export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemProps) {
+export default function TaskItem({ task, onToggle, onEdit, onDelete, compact = false }: TaskItemProps) {
   const priorityConf = PRIORITY_CONFIG[task.priority];
+  const quadrantConf = task.quadrant ? QUADRANT_CONFIG[task.quadrant] : null;
 
   const formatDueDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -34,6 +37,7 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemP
       className={cn(
         'group flex items-start gap-3 p-4 rounded-xl border transition-all duration-200',
         'bg-white dark:bg-surface-dark hover:shadow-card-hover',
+        compact && 'p-3',
         task.completed
           ? 'border-gray-100 dark:border-gray-800 opacity-60'
           : 'border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
@@ -65,6 +69,7 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemP
         <p
           className={cn(
             'text-sm font-medium transition-all',
+            compact && 'text-xs',
             task.completed
               ? 'line-through text-gray-400 dark:text-gray-500'
               : 'text-gray-900 dark:text-white'
@@ -72,7 +77,7 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemP
         >
           {task.title}
         </p>
-        {task.description && (
+        {!compact && task.description && (
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
             {task.description}
           </p>
@@ -82,6 +87,12 @@ export default function TaskItem({ task, onToggle, onEdit, onDelete }: TaskItemP
           <span className={cn('px-2 py-0.5 rounded-md text-xs font-medium', priorityConf.bgClass)}>
             {priorityConf.label}
           </span>
+          {quadrantConf && (
+            <span className={cn('px-2 py-0.5 rounded-md text-xs font-medium flex items-center gap-1', quadrantConf.bgClass)}>
+              <span className="text-[10px]">{quadrantConf.icon}</span>
+              {compact ? '' : quadrantConf.title}
+            </span>
+          )}
           {task.due_date && (
             <span
               className={cn(

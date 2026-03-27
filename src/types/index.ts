@@ -5,6 +5,7 @@
 export type Priority = 'low' | 'medium' | 'high' | 'urgent';
 export type PomodoroType = 'work' | 'short_break' | 'long_break';
 export type LevelName = 'rookie' | 'beginner' | 'apprentice' | 'intermediate' | 'industrious' | 'expert' | 'master' | 'grandmaster';
+export type EisenhowerQuadrant = 'do_first' | 'schedule' | 'delegate' | 'eliminate';
 
 export interface Profile {
   id: string;
@@ -22,6 +23,7 @@ export interface Task {
   description: string;
   completed: boolean;
   priority: Priority;
+  quadrant: EisenhowerQuadrant;
   due_date: string | null;
   created_at: string;
   updated_at: string;
@@ -31,6 +33,7 @@ export interface TaskFormData {
   title: string;
   description: string;
   priority: Priority;
+  quadrant: EisenhowerQuadrant;
   due_date: string;
 }
 
@@ -88,6 +91,17 @@ export interface PomodoroState {
   totalTime: number;
   sessionsCompleted: number;
   currentTaskId: string | null;
+}
+
+// Eisenhower Matrix quadrant config
+export interface QuadrantConfig {
+  id: EisenhowerQuadrant;
+  title: string;
+  subtitle: string;
+  icon: string;
+  color: string;
+  bgClass: string;
+  borderClass: string;
 }
 
 // Chart data types

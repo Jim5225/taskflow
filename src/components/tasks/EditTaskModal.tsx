@@ -19,6 +19,7 @@ export default function EditTaskModal() {
         title: data.title,
         description: data.description,
         priority: data.priority,
+        quadrant: data.quadrant,
         due_date: data.due_date || null,
       });
       toast.success('Task updated!');
@@ -43,6 +44,7 @@ export default function EditTaskModal() {
             title: editingTask.title,
             description: editingTask.description,
             priority: editingTask.priority,
+            quadrant: editingTask.quadrant,
             due_date: editingTask.due_date
               ? new Date(editingTask.due_date).toISOString().slice(0, 16)
               : '',
