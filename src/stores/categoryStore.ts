@@ -47,7 +47,7 @@ export const useCategoryStore = create<CategoryState>((set, get) => ({
       toast.success('Category created!');
     } catch (error: any) {
       set({ error: error.message, isLoading: false });
-      toast.error('Failed to create category');
+      toast.error(`Failed: ${error.message}`);
     }
   },
 
@@ -60,7 +60,7 @@ export const useCategoryStore = create<CategoryState>((set, get) => ({
       toast.success('Category updated!');
     } catch (error: any) {
       set({ error: error.message, isLoading: false });
-      toast.error('Failed to update category');
+      toast.error(`Failed: ${error.message}`);
     }
   },
 
