@@ -8,6 +8,7 @@ import type { PomodoroSession, UserStats } from '../types';
 export async function startPomodoroSession(
   userId: string,
   taskId: string | null,
+  categoryId: string | null,
   duration: number,
   type: 'work' | 'short_break' | 'long_break'
 ): Promise<PomodoroSession> {
@@ -16,6 +17,7 @@ export async function startPomodoroSession(
     .insert({
       user_id: userId,
       task_id: taskId,
+      category_id: categoryId,
       duration,
       type,
       completed: false,

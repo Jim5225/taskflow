@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useAuthStore } from './stores/authStore';
 import { useUIStore } from './stores/uiStore';
@@ -45,12 +45,26 @@ export default function App() {
     }
   }, [darkMode]);
 
+  // Apply extension constraints
+  useEffect(() => {
+    if ((import.meta.env as any).VITE_IS_EXT) {
+      document.body.style.width = '400px';
+      document.body.style.height = '600px';
+      document.documentElement.style.width = '400px';
+      document.documentElement.style.height = '600px';
+    }
+  }, []);
+
   if (!initialized) {
     return <LoadingSpinner fullScreen />;
   }
 
+  const isExtension = (import.meta.env as any).VITE_IS_EXT === true;
+  const Router = isExtension ? HashRouter : BrowserRouter;
+  const routerProps = isExtension ? {} : { basename: import.meta.env.BASE_URL };
+
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <Router {...routerProps}>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -83,6 +97,6 @@ export default function App() {
         />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }

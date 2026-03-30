@@ -41,12 +41,29 @@ export interface PomodoroSession {
   id: string;
   user_id: string;
   task_id: string | null;
+  category_id: string | null;
   duration: number;
   type: PomodoroType;
   completed: boolean;
   started_at: string;
   completed_at: string | null;
   created_at: string;
+}
+
+export interface PomodoroCategory {
+  id: string;
+  user_id: string;
+  name: string;
+  target_sessions: number;
+  color: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PomodoroCategoryFormData {
+  name: string;
+  target_sessions: number;
+  color: string;
 }
 
 export interface UserStats {
@@ -82,7 +99,7 @@ export interface FilterOptions {
   searchQuery: string;
 }
 
-export type ModalType = 'addTask' | 'editTask' | 'addHabit' | 'editHabit' | null;
+export type ModalType = 'addTask' | 'editTask' | 'addHabit' | 'editHabit' | 'addCategory' | 'editCategory' | null;
 
 export interface PomodoroState {
   isRunning: boolean;
@@ -91,6 +108,7 @@ export interface PomodoroState {
   totalTime: number;
   sessionsCompleted: number;
   currentTaskId: string | null;
+  currentCategoryId: string | null;
 }
 
 // Eisenhower Matrix quadrant config

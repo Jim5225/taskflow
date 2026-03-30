@@ -11,6 +11,7 @@ import AddHabitModal from '../components/habits/AddHabitModal';
 import { useAuthStore } from '../stores/authStore';
 import { useTaskStore } from '../stores/taskStore';
 import { useUIStore } from '../stores/uiStore';
+import { useHabitReminders } from '../hooks/useHabitReminders';
 import * as taskService from '../services/tasks';
 import * as statsService from '../services/stats';
 import type { UserStats } from '../types';

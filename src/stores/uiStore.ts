@@ -22,7 +22,7 @@ interface UIState {
   setActiveView: (view: 'tasks' | 'pomodoro' | 'statistics' | 'eisenhower' | 'habits') => void;
 
   // Pomodoro actions
-  startPomodoro: (taskId?: string | null) => void;
+  startPomodoro: (taskId?: string | null, categoryId?: string | null) => void;
   pausePomodoro: () => void;
   resumePomodoro: () => void;
   resetPomodoro: () => void;
@@ -46,6 +46,7 @@ export const useUIStore = create<UIState>()(
         totalTime: POMODORO_WORK_DURATION,
         sessionsCompleted: 0,
         currentTaskId: null,
+        currentCategoryId: null,
       },
 
       toggleDarkMode: () => set((s) => ({ darkMode: !s.darkMode })),
@@ -55,12 +56,13 @@ export const useUIStore = create<UIState>()(
       closeModal: () => set({ activeModal: null }),
       setActiveView: (view) => set({ activeView: view }),
 
-      startPomodoro: (taskId = null) =>
+      startPomodoro: (taskId = null, categoryId = null) =>
         set((s) => ({
           pomodoro: {
             ...s.pomodoro,
             isRunning: true,
             currentTaskId: taskId ?? s.pomodoro.currentTaskId,
+            currentCategoryId: categoryId ?? s.pomodoro.currentCategoryId,
           },
         })),
 
@@ -83,6 +85,7 @@ export const useUIStore = create<UIState>()(
             totalTime: POMODORO_WORK_DURATION,
             sessionsCompleted: 0,
             currentTaskId: null,
+            currentCategoryId: null,
           },
         }),
 
@@ -119,6 +122,7 @@ export const useUIStore = create<UIState>()(
             totalTime: nextTime,
             sessionsCompleted: newSessionsCompleted,
             currentTaskId: p.currentTaskId,
+            currentCategoryId: p.currentCategoryId,
           },
         });
       },

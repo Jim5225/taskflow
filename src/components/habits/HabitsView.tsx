@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Plus, Bell, Target, Calendar, CheckCircle2 } from 'lucide-react';
+import { Plus, Bell, Target, Calendar, CheckCircle2, Play } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import HabitList from './HabitList';
 import HabitStatistics from './HabitStatistics';
 import AddHabitModal from './AddHabitModal';
@@ -45,6 +46,16 @@ export default function HabitsView() {
     };
   }, [user]);
 
+  const sendTestNotification = () => {
+    if (Notification.permission === 'granted') {
+      new Notification("TickFlow Test", {
+        body: "Notifications are working! ✨",
+      });
+    } else {
+      toast.error("Please enable notifications first!");
+    }
+  };
+
   // Filter habits that have reminders set
   const reminders = habits.filter(h => h.reminder_time).sort((a,b) => (a.reminder_time || '').localeCompare(b.reminder_time || ''));
 
@@ -58,6 +69,13 @@ export default function HabitsView() {
         </div>
         
         <div className="flex items-center gap-4">
+          <button
+            onClick={sendTestNotification}
+            className="p-3 rounded-2xl border border-gray-100 dark:border-gray-800 text-gray-500 hover:bg-gray-50 dark:hover:bg-surface-dark-hover transition-colors"
+            title="Test Notification"
+          >
+            <Play size={20} />
+          </button>
           <button
             onClick={() => {
               if (Notification.permission !== 'granted') {
