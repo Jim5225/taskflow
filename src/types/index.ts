@@ -82,7 +82,7 @@ export interface FilterOptions {
   searchQuery: string;
 }
 
-export type ModalType = 'addTask' | 'editTask' | null;
+export type ModalType = 'addTask' | 'editTask' | 'addHabit' | 'editHabit' | null;
 
 export interface PomodoroState {
   isRunning: boolean;
@@ -130,3 +130,46 @@ export interface YearlyChartData {
   tasks: number;
   focusHours: number;
 }
+
+// Habit Tracking Types
+export interface Habit {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  target_days: number;
+  frequency: 'daily' | 'weekly' | 'monthly';
+  reminder_time: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface HabitLog {
+  id: string;
+  habit_id: string;
+  user_id: string;
+  completed_at: string; // ISO Date string (YYYY-MM-DD)
+  created_at: string;
+}
+
+export interface HabitFormData {
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  target_days: number;
+  frequency: 'daily' | 'weekly' | 'monthly';
+  reminder_time: string | null;
+}
+
+export interface HabitStats {
+  habit_id: string;
+  current_streak: number;
+  longest_streak: number;
+  total_completions: number;
+  completion_rate: number;
+  recent_logs: string[]; // Dates
+}
+

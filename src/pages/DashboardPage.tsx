@@ -6,6 +6,8 @@ import EditTaskModal from '../components/tasks/EditTaskModal';
 import PomodoroTimer from '../components/pomodoro/PomodoroTimer';
 import StatisticsView from '../components/statistics/StatisticsView';
 import EisenhowerMatrix from '../components/eisenhower/EisenhowerMatrix';
+import HabitsView from '../components/habits/HabitsView';
+import AddHabitModal from '../components/habits/AddHabitModal';
 import { useAuthStore } from '../stores/authStore';
 import { useTaskStore } from '../stores/taskStore';
 import { useUIStore } from '../stores/uiStore';
@@ -69,11 +71,13 @@ export default function DashboardPage() {
     <AppLayout userXP={userStats?.xp || 0}>
       {activeView === 'tasks' && <TaskList />}
       {activeView === 'eisenhower' && <EisenhowerMatrix />}
+      {activeView === 'habits' && <HabitsView />}
       {activeView === 'pomodoro' && <PomodoroTimer />}
       {activeView === 'statistics' && <StatisticsView />}
 
       <AddTaskModal />
       <EditTaskModal />
+      <AddHabitModal />
     </AppLayout>
   );
 }

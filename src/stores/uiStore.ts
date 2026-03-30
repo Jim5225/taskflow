@@ -11,7 +11,7 @@ interface UIState {
   darkMode: boolean;
   sidebarOpen: boolean;
   activeModal: ModalType;
-  activeView: 'tasks' | 'pomodoro' | 'statistics' | 'eisenhower';
+  activeView: 'tasks' | 'pomodoro' | 'statistics' | 'eisenhower' | 'habits';
   pomodoro: PomodoroState;
 
   toggleDarkMode: () => void;
@@ -19,7 +19,7 @@ interface UIState {
   setSidebarOpen: (open: boolean) => void;
   openModal: (modal: ModalType) => void;
   closeModal: () => void;
-  setActiveView: (view: 'tasks' | 'pomodoro' | 'statistics' | 'eisenhower') => void;
+  setActiveView: (view: 'tasks' | 'pomodoro' | 'statistics' | 'eisenhower' | 'habits') => void;
 
   // Pomodoro actions
   startPomodoro: (taskId?: string | null) => void;
